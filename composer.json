@@ -1,5 +1,5 @@
 {
-    "name": "FusionCMS/MX",
+    "name": "fusion-cms/mx",
     "description": "Modular Extensions - HMVC",
     "license": "MIT",
     "authors": [
@@ -14,12 +14,12 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=8.1.0",
+        "php": ">=8.1.0"
     },
     "autoload": {
-        "psr-4": {
-            "MX\\": "MX/"
-        }
+        "classmap": [
+            "MX/"
+        ]
     },
     "config": {
         "sort-packages": true
