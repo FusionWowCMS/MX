@@ -59,6 +59,36 @@ class MX_Router extends CI_Router
     }
 
     /**
+     * Parse Routes
+     *
+     * Matches any routes that may exist in the config/routes.php file
+     * against the URI to determine if the class/method need to be remapped.
+     *
+     * @return  void
+     */
+    protected function _parse_routes()
+    {
+        // Route: Backup previously loaded routes
+        $route = $this->routes;
+
+        // Route files: Find modules routes files
+        if($routeFiles = glob(rtrim(str_replace(['\\', '/'], DIRECTORY_SEPARATOR, realpath(APPPATH)), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'routes.' . pathinfo(__FILE__, PATHINFO_EXTENSION)))
+        {
+            // Route files: Loop through
+            foreach($routeFiles as $routeFile)
+            {
+                require_once($routeFile);
+            }
+        }
+
+        // Routes: Fill
+        $this->routes = $route;
+
+        // Call parent method
+        parent::_parse_routes();
+    }
+
+    /**
      * [_set_request description]
      *
      * @method _set_request
